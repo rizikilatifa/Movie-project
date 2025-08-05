@@ -970,6 +970,11 @@ There are different type of rating, we need to standardize this in order to get 
 
 
 ```python
+"""Create a function that checks if our column is of string type 
+removes only white spaces
+splits rating column where there is /
+and then normalises it to a scale of 10
+"""
 def safe_rating_to_float(rating_str):
     try:
         if isinstance(rating_str, str) and '/' in rating_str:
@@ -977,9 +982,9 @@ def safe_rating_to_float(rating_str):
             num, den = rating_str.split('/')
             return (float(num) / float(den)) * 10  # Normalize to scale of 10
         elif float(rating_str) > 10:
-            return float(rating_str)/10
+            return float(rating_str)/10 #make it standard
         else:
-           return float(rating_str)  
+           return float(rating_str) # the input was already scaled out of 10 
     except: 
       return None
     
@@ -987,6 +992,7 @@ def safe_rating_to_float(rating_str):
 
 
 ```python
+# apply the safe rating to rating to rt_reviews
 rt_reviews["rating_scaled_10"] = rt_reviews['rating'].apply(safe_rating_to_float)
 ```
 
